@@ -3,56 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For My Love 💕</title>
+  <title>For My Forever and After 💕</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Georgia', serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      color: #fff;
-      text-align: center;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .container {
-      max-width: 600px;
-      padding: 30px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-    h1, h2 { margin: 0 0 20px; }
-    .question { font-size: 1.6em; margin: 30px 0; }
-    input, button {
-      padding: 12px 20px;
-      margin: 10px;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.1em;
-    }
-    input { width: 80%; }
-    button {
-      background: #ff4757;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    button:hover { background: #ff3742; }
-    .feedback { margin: 15px 0; font-size: 1.2em; min-height: 30px; }
-    .hearts { font-size: 3em; animation: float 3s infinite; }
-    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-    .hidden { display: none; }
-    .proposal-buttons button {
-      font-size: 2em;
-      padding: 20px 40px;
-      margin: 20px;
-    }
-    .yes-btn { background: #ff4757 !important; }
+ #intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;                /* adds consistent spacing between elements */
+}
+
+#intro img {
+  max-width: 85%;           /* slightly smaller to leave breathing room */
+  max-height: 40vh;         /* aggressive height limit — adjust to 35vh or 30vh if still bad */
+  width: auto;
+  height: auto;
+  object-fit: contain;      /* prevents distortion, keeps aspect ratio */
+  margin: 0 auto 40px auto; /* big bottom margin to push text/button down */
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  display: block;
+  position: relative;       /* ensures no weird stacking */
+  z-index: 1;
+}
+
+#intro button {
+  margin-top: 20px;         /* extra space above button if needed */
+  z-index: 2;               /* button always on top */
+  position: relative;
+}
   </style>
 </head>
 <body>
@@ -60,11 +40,11 @@
 <img src="https://imgur.com/da2sIaS.jpg" style="max-width:100%; border-radius:15px; margin-bottom:20px;">
     <!-- Intro -->
     <div id="intro">
-  <h1>My Dearest ❤️</h1>
+  <h1>My Beautiful Wife ❤️</h1>
   
   <img 
     src="https://imgur.com/a/BSK9UyM.jpg" 
-    alt="Us together 💕" 
+   
     style="
       max-width: 90%;               /* won't exceed container width */
       max-height: 50vh;             /* limits height to half screen */
@@ -77,7 +57,15 @@
     "
   >
   
-  <p class="hearts">💕 💖 💕</p>
+ 
+
+
+
+
+
+
+
+ <p class="hearts">💕 💖 💕</p>
   <p>Only you can answer these questions correctly.<br>Answer all of them to unlock my most important question...</p>
   <button onclick="startQuiz()">I'm Ready, My Love</button>
 </div>
