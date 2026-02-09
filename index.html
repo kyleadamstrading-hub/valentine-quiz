@@ -1,180 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For My Forever and After 💕</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Alison Adams – My Forever Love 💖</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <style>
- #intro {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;                /* adds consistent spacing between elements */
-}
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #9d174d, #be185d, #ec4899);
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-#intro img {
-  max-width: 85%;           /* slightly smaller to leave breathing room */
-  max-height: 40vh;         /* aggressive height limit — adjust to 35vh or 30vh if still bad */
-  width: auto;
-  height: auto;
-  object-fit: contain;      /* prevents distortion, keeps aspect ratio */
-  margin: 0 auto 40px auto; /* big bottom margin to push text/button down */
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  display: block;
-  position: relative;       /* ensures no weird stacking */
-  z-index: 1;
-}
+    /* Floating hearts background – more of them! */
+    .hearts-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .heart {
+      position: absolute;
+      font-size: 2rem;
+      color: rgba(255, 255, 255, 0.75);
+      animation: float linear infinite;
+      user-select: none;
+    }
+    @keyframes float {
+      0%   { transform: translateY(110vh) rotate(0deg); opacity: 0.7; }
+      100% { transform: translateY(-30vh) rotate(720deg); opacity: 0; }
+    }
 
-#intro button {
-  margin-top: 20px;         /* extra space above button if needed */
-  z-index: 2;               /* button always on top */
-  position: relative;
-}
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      width: 100%;
+      background: rgba(157, 23, 77, 0.4);
+      backdrop-filter: blur(14px);
+      border-radius: 28px;
+      padding: 45px 35px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      text-align: center;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    h1, h2 { margin-bottom: 28px; text-shadow: 0 3px 12px rgba(0,0,0,0.7); }
+    .hearts { font-size: 4rem; margin: 25px 0; animation: pulse 3s infinite; }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+    img.profile {
+      max-width: 100%;
+      max-height: 40vh;
+      border-radius: 20px;
+      margin: 0 auto 35px;
+      display: block;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+      object-fit: cover;
+    }
+
+    .question { font-size: 1.8rem; margin: 40px 0 30px; line-height: 1.4; }
+    input {
+      width: 100%;
+      padding: 16px 24px;
+      margin: 18px 0;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      text-align: center;
+    }
+    input::placeholder { color: rgba(255,255,255,0.7); }
+
+    button {
+      padding: 16px 50px;
+      margin: 18px 12px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      cursor: pointer;
+      background: #ec4899;
+      color: white;
+      transition: all 0.3s;
+    }
+    button:hover { background: #db2777; transform: scale(1.08); }
+
+    .feedback { min-height: 35px; font-size: 1.4rem; margin: 20px 0; }
+    .hidden { display: none; }
+
+    .proposal-buttons button {
+      font-size: 2.4rem;
+      padding: 30px 70px;
+      margin: 35px 20px;
+    }
+    .yes-btn { background: #ec4899 !important; }
+    .yes-btn:hover { background: #db2777 !important; }
+
+    /* Audio player – small, bottom-right, subtle */
+    audio {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10;
+      width: 220px;
+      opacity: 0.85;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.4);
+      padding: 8px;
+    }
+
+    @media (max-width: 500px) {
+      .container { padding: 35px 25px; }
+      .question { font-size: 1.6rem; }
+      button { padding: 14px 40px; font-size: 1.3rem; }
+      audio { width: 180px; bottom: 15px; right: 15px; }
+    }
   </style>
 </head>
 <body>
+
+  <div class="hearts-bg" id="heartsBg"></div>
+
+  <!-- Background love song: soft romantic piano instrumental (free, no copyright) -->
+  <!-- Credit: Love by Alex-Productions | https://onsound.eu/ | CC BY 3.0 -->
+  <audio controls loop autoplay muted>
+    <source src="https://assets.codepen.io/605876/Love+-+Romantic+Music+For+Weddings+And+Valentines+Day+by+Alex-Productions.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
   <div class="container" id="app">
-<img src="https://imgur.com/da2sIaS.jpg" style="max-width:100%; border-radius:15px; margin-bottom:20px;">
-    <!-- Intro -->
+    <!-- Intro Screen -->
     <div id="intro">
-  <h1>My Beautiful Wife ❤️</h1>
-  
-  <img 
-    src="https://imgur.com/a/BSK9UyM.jpg" 
-   
-    style="
-      max-width: 90%;               /* won't exceed container width */
-      max-height: 50vh;             /* limits height to half screen */
-      width: auto; 
-      height: auto; 
-      border-radius: 15px; 
-      margin: 0 auto 30px auto;     /* centers + space below */
-      display: block;               /* removes any inline weirdness */
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    "
-  >
-  
- 
-
-
-
-
-
-
-
- <p class="hearts">💕 💖 💕</p>
-  <p>Only you can answer these questions correctly.<br>Answer all of them to unlock my most important question...</p>
-  <button onclick="startQuiz()">I'm Ready, My Love</button>
-</div>
+      <h1>For Alison Adams 💕 My Beautiful Wife</h1>
+      <img class="profile" src="https://imgur.com/a/BSK9UyM.jpg">
+      <div class="hearts">💖 💞 💗 💓 💕 ❤️</div>
+      <p style="font-size:1.4rem; margin:25px 0;">
+        Alison, only you know the answers to these...<br>
+        Get them all right to unlock my heart's biggest question 💍
+      </p>
+      <button onclick="startQuiz()">I'm Ready, Alison My Beautiful</button>
+    </div>
 
     <!-- Quiz -->
     <div id="quiz" class="hidden">
-      <h2>Question <span id="progress">1</span>/5</h2>
-      <div class="question" id="question-text"></div>
-      <input type="text" id="answer-input" placeholder="Type your answer here...">
-      <button onclick="checkAnswer()">Submit Answer</button>
-      <div class="feedback" id="feedback"></div>
+      <h2>Question <span id="qNum">1</span> of 5</h2>
+      <div class="question" id="qText"></div>
+      <input type="text" id="answer" placeholder="Your answer, Alison..." autocomplete="off">
+      <button onclick="check()">Submit</button>
+      <div class="feedback" id="msg"></div>
     </div>
 
-    <!-- Proposal (5th question) -->
+    <!-- Proposal -->
     <div id="proposal" class="hidden">
-      <h1>Final Question 💍</h1>
-      <div class="question" style="font-size:2em;">Will you be my Valentine?</div>
+      <h1>One Last Question, Alison 💖</h1>
+      <div class="question" style="font-size:2.6rem; margin:45px 0;">
+        Alison Adams, will you be my Valentine?
+      </div>
       <div class="proposal-buttons">
-        <button class="yes-btn" onclick="sayYes()">YES! ❤️</button>
-        <button onclick="sayNo()">No</button>
+        <button class="yes-btn" onclick="sayYes()">YES! 💍❤️</button>
+        <button onclick="sayNo()">No 😢</button>
       </div>
     </div>
 
     <!-- Success -->
     <div id="success" class="hidden">
-      <h1>YES!!! 🎉</h1>
-      <p class="hearts" style="font-size:4em;">💖💖💖</p>
-      <p style="font-size:1.8em;">I love you more than anything in this world.<br>Thank you for making every day better just by being you.</p>
-      <p style="font-size:2.5em;">❤️ Be mine forever? ❤️</p>
+      <h1>YES!!! Alison, My Forever Love! 🎉💖</h1>
+      <div class="hearts" style="font-size:6rem;">💖💞💗💓💕❤️</div>
+      <p style="font-size:2rem; margin:35px 0;">
+        I love you more every day, Alison Adams.<br>
+        Thank you for being my everything ❤️
+      </p>
+      <p style="font-size:2.6rem; margin-top:50px;">
+        Forever mine? 💕
+      </p>
     </div>
   </div>
 
   <script>
+    // Floating hearts (increased frequency)
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = ['💖','💕','💗','💞','💓','❤️','💘','💝'][Math.floor(Math.random()*8)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      heart.style.opacity = Math.random() * 0.4 + 0.5;
+      heart.style.fontSize = (Math.random() * 1.5 + 1.2) + 'rem';
+      document.getElementById('heartsBg').appendChild(heart);
+      setTimeout(() => heart.remove(), 25000);
+    }
+    setInterval(createHeart, 400); // hearts appear more often
+
+    // Quiz data – replace answers!
     const questions = [
-      {
-        q: "Where did we first meet?",
-        a: "Bedford Centre"   // e.g. "the beach" or "starbucks" (lowercase is fine)
-      },
-      {
-        q: "What is my favorite color?",
-        a: "Black"
-      },
-      {
-        q: "What is the name of my favourite movie?",
-        a: "Tenacious D"
-      },
-      {
-        q: "When is our anniversary? (year or month/year)",
-        a: "15 September 2014"
-      }
-      // Last question is handled separately below
+      { q: "Where did we first meet?", a: "Bedford Centre" },
+      { q: "What was our first date spot?", a: "Rhodes Park" },
+      { q: "What is my favorite thing about you?", a: "My personality" },
+      { q: "When did I ask you to be with me? (day/month/year)", a: "15 September 2014" }
     ];
 
     let current = 0;
 
-    function normalize(str) {
-      return str.trim().toLowerCase();
+    function normalize(s) {
+      return (s || '').trim().toLowerCase();
     }
 
     function startQuiz() {
       document.getElementById('intro').classList.add('hidden');
       document.getElementById('quiz').classList.remove('hidden');
-      loadQuestion();
+      loadQ();
     }
 
-    function loadQuestion() {
-      document.getElementById('question-text').textContent = questions[current].q;
-      document.getElementById('progress').textContent = current + 1;
-      document.getElementById('answer-input').value = '';
-      document.getElementById('feedback').innerHTML = '';
+    function loadQ() {
+      document.getElementById('qNum').textContent = current + 1;
+      document.getElementById('qText').textContent = questions[current].q;
+      document.getElementById('answer').value = '';
+      document.getElementById('msg').innerHTML = '';
     }
 
-    function checkAnswer() {
-      const input = document.getElementById('answer-input').value;
+    function check() {
+      const ans = document.getElementById('answer').value;
       const correct = questions[current].a;
-      const feedback = document.getElementById('feedback');
+      const msg = document.getElementById('msg');
 
-      if (normalize(input) === normalize(correct)) {
+      if (normalize(ans) === normalize(correct)) {
         current++;
         if (current >= questions.length) {
-          // Show the final proposal question
           document.getElementById('quiz').classList.add('hidden');
           document.getElementById('proposal').classList.remove('hidden');
         } else {
-          loadQuestion();
+          loadQ();
         }
       } else {
-        feedback.innerHTML = `Hmm, not quite my love... 💕<br>Try again!`;
-        feedback.style.color = '#fff';
+        msg.innerHTML = "Close, but not quite, my Alison... try again 💕";
       }
     }
 
     function sayYes() {
       document.getElementById('proposal').classList.add('hidden');
       document.getElementById('success').classList.remove('hidden');
-      // Launch confetti
-      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-      setTimeout(() => confetti({ particleCount: 100, angle: 60, spread: 50, origin: { x: 0 } }), 300);
-      setTimeout(() => confetti({ particleCount: 100, angle: 120, spread: 50, origin: { x: 1 } }), 600);
+      confetti({
+        particleCount: 200,
+        spread: 90,
+        origin: { y: 0.6 },
+        colors: ['#ec4899', '#be185d', '#9d174d', '#ffffff', '#ff69b4']
+      });
     }
 
     function sayNo() {
-      alert("Wrong answer 😉 I know what you'll really say... Try again!");
+      alert("I know your heart says YES, Baby 😉 Try again!");
     }
 
-    // Optional: Press Enter to submit answer
-    document.addEventListener('keypress', function(e) {
+    // Enter key to submit
+    document.addEventListener('keypress', e => {
       if (e.key === 'Enter' && !document.getElementById('quiz').classList.contains('hidden')) {
-        checkAnswer();
+        check();
       }
     });
   </script>
